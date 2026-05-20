@@ -1,0 +1,40 @@
+---
+title: "Spring Boot Container Pipeline"
+summary: "Reproducible build-and-publish pipeline for Spring Boot services, with Jib, multi-arch images and signed releases."
+description: "A reusable pattern for shipping Spring Boot applications as small, signed, multi-architecture container images — without writing a Dockerfile."
+period: "2023 — 2024"
+role: "Engineering Lead"
+stack:
+  - "Spring Boot"
+  - "Jib"
+  - "GitHub Actions"
+  - "Docker Buildx"
+  - "Cosign"
+tag: "DevOps"
+featured: true
+sourceUrl: "https://github.com/sharaafnazeer"
+order: 2
+---
+
+A pattern I've reached for repeatedly to take Spring Boot services from
+`git push` to a published, signed, multi-arch image in roughly four minutes
+of CI time — no hand-written Dockerfile required.
+
+## How it works
+
+- **Jib** produces a layered image directly from Maven/Gradle. App, deps and
+  config become separate layers, so cache hit rates stay high.
+- The pipeline targets both `linux/amd64` and `linux/arm64`, which matters as
+  fleets shift towards Graviton.
+- Each release is signed with [Cosign](https://github.com/sigstore/cosign)
+  using GitHub OIDC — no long-lived keys, no manual key management.
+- An SBOM is generated and attached to the image manifest.
+- Reusable GitHub Actions workflow makes adopting this across a team of
+  services a 10-minute task per repo.
+
+## What it solved
+
+The starting point was a team where every service had its own Dockerfile,
+each subtly different. Build times varied from 30 seconds to 6 minutes, image
+sizes from 80MB to 400MB. Consolidating onto this pattern halved median CI
+time and brought image sizes within 15% of each other.

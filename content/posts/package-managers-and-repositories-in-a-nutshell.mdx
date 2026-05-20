@@ -1,0 +1,74 @@
+---
+title: "Package Managers and Repositories in a Nutshell"
+description: "A package is a file containing a computer program as well as necessary metadata for its deployment. Package metadata includes dependencies, descriptions, and versions."
+date: "2020-03-12"
+tag: "Common"
+categories:
+  - "Common"
+tags:
+  - "dependencies"
+  - "packagemanagers"
+  - "repositories"
+coverImage: "/images/blog/package-managers-and-repositories-in-a-nutshell/cover.png"
+readingTime: "4 min read"
+published: true
+---
+**What is a package?**
+
+A package is a file containing a computer program as well as necessary metadata for its deployment. Package metadata includes dependencies, descriptions, and versions.
+
+**What is a repository?**
+
+Repositories are nothing, but basically servers which contain sets of packages.
+
+**What is a package manager?**
+
+A package manager is a tool or program used to install, update, remove packages from the software component that you are working on.
+
+Assume you are working on an ERP application which deals with hundreds of email creation and mailing part. So, you need to develop an email generation module that enables your application to send emails. Therefore, you need to write your own code to send emails or you need to find out a library which supports the programming language that you are dealing with. Think how it is more practical? You need to write your own code, spending some time for it or you need to search for a library with specific/ latest version according to your need, you have to install it and add it to your project manually. This situation is kind of time-consuming part in the development process.
+
+So here package managers come to action. Package managers are nothing but it allows you to find out suitable library which will solve your above problem. There are thousands of libraries and packages written by many developers and made available for users. On the other hand, we can develop our own library/ project, put it in a package and make visible to others for use. Developers usually specify dependencies, a package name, author, tags/keywords and version number. All this helps online repositories store your package and allows others to find the specific project/ library.
+
+There are several package managers available according to the programming language that we use to code. Here, I would like to explain some popular package managers with their repositories.
+
+**Java** **–>** **Package Manager: Maven or Gradle | Repository – Maven Central**
+
+Java has two options for package management. Maven is the industry standard and old package manager that exists for several years. Maven central is the largest repository that contains thousands of packages that is available to use in our projects. Maven downloads plugins and libraries from several repositories and then put them on our local machine. It used for Java projects, and also we can use it for Ruby, Scala, and C#.
+
+![](/images/blog/package-managers-and-repositories-in-a-nutshell/5099-gradle.png)
+
+![](/images/blog/package-managers-and-repositories-in-a-nutshell/Apache-Maven-its-uses.jpeg)
+
+Gradle was developed and released by several developers in 2007, as well as in 2013, it was grabbed by Google because the build system for Android projects and also utilized in Java projects nowadays. It supports the development and subsequent deployment using other programming languages such as Groovy, Java, and Scala with other project workflows and languages being introduced in the future.
+
+**.Net -> Package Manager: NuGet | Repository: NuGet Gallery**
+
+![](/images/blog/package-managers-and-repositories-in-a-nutshell/download-1.png)
+
+NuGet is the package manager for .NET applications. The central repository used by everyone is called as Nuget Gallery
+
+**JavaScript –> Package Manager and Repository: npm**
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/1200px-Npm-logo.svg.png)
+
+Node Package Manager (npm) is the world’s largest repository deals with tons of packages related to JavaScript. It hosts very popular packages like Bootstrap, React.js, JQuery, Angular, etc.
+
+**PHP –> Package Manager: Composer | Repository: Packagist**
+
+![](https://camo.githubusercontent.com/87a61ddbcba3945b17878f9114b9d14b52f22873/68747470733a2f2f7061636b61676973742e6f72672f62756e646c65732f7061636b61676973747765622f696d672f6c6f676f2e706e67)
+
+![](/images/blog/package-managers-and-repositories-in-a-nutshell/logo-composer-transparent4.png)
+
+Composer helps us to declare, manage and install necessary dependencies of PHP projects. It ensures you've got the proper stack everywhere. Packagist is that the main Composer Repository. It aggregates public PHP packages installable with Composer. Like npm, linking GitHub and Packagist allows for Zero down­time deployments to the platform.
+
+**Python –> Package Managers: pip / Conda | Repository: pypi**
+
+Pip is that the most recommended tool/software for installing packages from the so-called Python Package Index, PyPI. Pip installs Python Software Package as source distributions or wheels.
+
+Conda is a package manager that installs and manages Conda python software packages from the AnaConda repository and AnaConda Cloud. These packages are not restricted to python. It also contains C or C++ libraries, R packages, or any other software.
+
+Pip installs Python packages whereas Conda installs packages that will contain software written in any language. Conda on the opposite hand can install Python packages also because of the Python Interpreter directly. Conda can create separate environments that can contain various versions of Python and/or the packages installed in them.
+
+![](https://pypi.org/static/images/twitter.90915068.jpg)
+
+![](https://upload.wikimedia.org/wikipedia/en/c/cd/Anaconda_Logo.png)

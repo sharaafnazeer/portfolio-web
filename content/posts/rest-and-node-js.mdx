@@ -1,0 +1,131 @@
+---
+title: "Node.JS and REST"
+description: "Hello everyone!. In this article, I'll be talking about Node.js and how It works well with REST API development."
+date: "2021-04-11"
+tag: "JavaScript"
+categories:
+  - "JavaScript"
+  - "NodeJs"
+tags:
+  - "api"
+  - "nodejs"
+  - "restapi"
+coverImage: "/images/blog/rest-and-node-js/cover.png"
+readingTime: "11 min read"
+published: true
+---
+Hello everyone!. In this article, I'll be talking about Node.js and how It works well with REST API development.
+
+There are currently too many technologies out there—be it programming languages, platforms, or frameworks. Why is it, then, that Node.js—a project that’s hasn’t even reached version 1.0 at the time of this writing—is so popular these days?  
+Advances in hardware make it possible for developers to focus less on hyper-optimizing their code to gain speed, allowing them to focus more on the speed of development; thus, a new set of tools has surfaced. These tools make it easier for novice developers to develop new projects, while at the same time provide advanced developers with access to the same type of power they got with the old tools. These tools are the new programming languages and frameworks of today (Spring Boot, Laravel, Symfony, Ruby on Rails, Express.js, Node.js, Django, and much more).  
+In this article, I’ll be highlighting **Node.js** and its main features to help us understand why it is such a great tool for **API development.**  
+**1\. Async programming:** This is a great feature of Node.js. I’ll discuss how we can leverage it to gain better results than if using other technologies.  
+**2\. Async I/O:** Although related to async programming, this deserves a separate mention because, in input/output-heavy applications, this particular feature presents the winning card for choosing Node.js over other technologies.  
+**3\. Simplicity:** Node.js makes getting started and writing your first web server very easy.  
+**4\. Amazing integration with JSON-based services** (like other APIs, MongoDB, etc.).  
+**5\. The community and the Node package manager (npm)**.
+
+**1\. Asynchronous Programming**
+
+Asynchronous (or async) programming is perhaps at the same time one of the best and most confusing features of Node.js. Asynchronous programming means that for every asynchronous function that we execute, we can’t expect it to return the results before moving forward with the program’s flow. Instead, we’ll need to provide a callback block/function that will be executed once the asynchronous code finishes. **Figure 1** shows a non-async follow.
+
+![](/images/blog/rest-and-node-js/image-8.png)
+
+**Figure 1**
+
+Figure 1 represents a set of instructions that run in a synchronous manner. To execute Instruction #4, we need to wait as long as the “long running big instruction” takes and then wait for Instruction #3 to finish. But what if Instruction #4 and Instruction #3 weren’t really related? What if we didn’t really mind in which order Instruction #3 and Instruction #4 executed in relationship to each other?  
+Then we could make the “long running big instruction” executed in an asynchronous manner and provide Instruction #3 as a callback to that, allowing us to execute Instruction #4 much sooner. **Figure 2** shows how that would look.
+
+![](/images/blog/rest-and-node-js/image-9.png)
+
+**Figure 2**
+
+Instead of waiting for it to finish, Instruction #4 is executed right after Instruction #2 starts the asynchronous “long running big instruction.” This is a very simple example of the potential benefits of asynchronous programming. Sadly, like with most in this digital world, nothing comes without a price, and the added benefits also come with a nasty trade-off: debugging asynchronous code can be a real head-breaker. Developers are trained to think of their code in the sequential way they write it, so debugging a code that is not sequential can be difficult to newcomers.
+
+For instance, Codes 1 and 2 show the same piece of code written in a synchronous and an asynchronous manner, respectively
+
+\[gist id="8e45f468747e6d91de84cedfe7531eff" file="Code 1 : Synchronous Version of a Simple Read File Operation"\] \[gist id="8e45f468747e6d91de84cedfe7531eff" file="Code 2 : Asynchronous Version of a Simple File Read Operation with a Common Mistake"\]
+
+**Code 2** will print the following:  
+File content:  
+and the reason for that is directly related to the diagram shown in **Figure 3**. Let’s use it to see what’s going on with the buggy asynchronous version.
+
+![](/images/blog/rest-and-node-js/image-10.png)
+
+**Figure 3**
+
+It’s pretty clear why the content of the file is not being written: the callback is being executed after the last **console.log** line. This is a very common mistake by new developers, not only with Node.js but more specifically with AJAX calls on the front end. They set up their code in a way to use the content returned by the asynchronous call before it actually ends.  
+**Code 3** shows how the code needs to be written to properly work.
+
+\[gist id="8e45f468747e6d91de84cedfe7531eff" file="Code 3 : Correct Version of the Asynchronous File Read Operation"\]
+
+**Async Advanced**
+
+Asynchronous programming is not just about making sure that we set up the callback function correctly, it also allows for some interesting flow control patterns that can be used to improve the efficiency of the app. Let’s look at two distinct and very useful control flow patterns for asynchronous programming: **parallel flow and serial flow.**
+
+**Parallel Flow**
+
+The idea behind parallel flow is that the program can run a set of nonrelated tasks in parallel but only call the callback function provided (to gather their collective outputs) after all tasks have finished executing. Basically, **Code 4** shows what we want.
+
+\[gist id="8e45f468747e6d91de84cedfe7531eff" file="Code 4 : Signature of the Parallel Function"\]
+
+To know when each of the functions passed in the array has finished execution, they’ll have to execute a callback function with the results of their operation. The callback will be the only attribute they receive. **Code 5** shows the parallel function.
+
+\[gist id="8e45f468747e6d91de84cedfe7531eff" file="Code 5 : Implementation of the Parallel Function"\]
+
+The implementation in **Code 5** is very simple, but it fulfills its task: it runs a set of functions in a parallel way (we'll see that since Node.js runs in a single thread, true parallelism is not possible, so this is as close as we can get). This type of control flow is particularly useful when dealing with calls to external services.
+
+**Serial Flow**
+
+The serial flow provides the means to easily specify a list of functions that need to be executed in a particular order. This solution doesn’t provide a speed boost like parallel flow does, but it does provide the ability to write such code and keep it clean, staying away from what is normally known as _spaghetti code_.  
+**Code 6** shows what we should try to accomplish.
+
+\[gist id="8e45f468747e6d91de84cedfe7531eff" file="Code 6 : Signature of the Serial Function"\]
+
+**Code 7** shows what you shouldn’t do.
+
+\[gist id="8e45f468747e6d91de84cedfe7531eff" file="Code 8 : Implementation of the Serial Function"\]
+
+We can see how the code in **Code 7** could get out of hand if the number of functions kept growing. So the serial approach helps keep the code organized and readable. Let’s look at a possible implementation of the serial function in **Code 8**.
+
+\[gist id="8e45f468747e6d91de84cedfe7531eff" file="Code 8 : Implementation of the Serial Function"\]
+
+There are more variations to these functions, like using an error parameter to handle errors automatically or limiting the number of simultaneous functions in the parallel flow. All in all, asynchronous programming brings a lot of benefits to implementing APIs. Parallel workflow comes in very handy when dealing with external services, which  
+normally any API would deal with—for instance, database access, other APIs, disk I/O, and so forth. And at the same time, the serial workflow is useful when implementing things like Express.js middleware.
+
+**2\. Asynchronous I/O**
+
+A specific case of asynchronous programming relates to a very interesting feature provided by Node.js: asynchronous I/O. This feature is highly relevant to the internal architecture of Node.js. Node.js doesn’t provide multi-threading; it actually works with a single thread that runs an event loop. Essentially, the Event Loop works on phases; for every tick of the loop, it goes through a new phase. For every phase, it keeps a FIFO queue of callbacks, and it executes as many callbacks in that phase as it can (there is a limit to how many callbacks can be called on every tick).
+
+There is a common misconception that the event loops handle all asynchronous functions with threads from Libuv (the library V8 uses to handle asynchronism). But it’s not exactly true; these threads are only used in special cases when there is no other way, because the modern OS and other systems, such as Databases, already provide asynchronous interfaces, so the engine will try to use them, and if there is no async alternative, it’ll resort to the thread pool.  
+The aforementioned phases are:  
+1\. Timers: Here is where setTimeout and setInterval are evaluated.  
+2\. Callbacks: Here is where system-specific callbacks are executed.  
+3\. Poll: This is where I/O-related callbacks get executed, as long as there are any. Once all callbacks have been executed (or the system’s limit is reached), if there is nothing else to execute, then the engine will wait for new callbacks to be registered in this phase to execute them.  
+4\. Check: Here is where setImmediate is evaluated.  
+5\. Close events: Here is where the callbacks registered for the ‘close’ events are executed.
+
+**3\.** **Simplicity**
+
+Node.js (more specifically, JavaScript) is not a complicated language. It follows the basic principles that similar scripting languages follow (like Ruby, Python, and PHP), but with a twist (like all of them do). Node.js is simple enough for any developer to pick up and start coding in no time, and yet it’s powerful enough to achieve almost anything developers can set their minds to.  
+Node.js adds a certain useful flavor to the language, simplifying a developer’s life when trying to develop back-end code. It not only adds the required utilities to work with I/O (which front-end JavaScript doesn’t have for obvious security reasons), but it also provides stability for all the different flavors of JavaScript that each web browser supports. One example of this is how easy it is to set up a web server with just a few lines of code. Let’s look at that in **Code 9**.
+
+\[gist id="8e45f468747e6d91de84cedfe7531eff" file="Code 9 : Simple Example of a Web Server Written in Node.js"\]
+
+JavaScript also has the advantage of being the standard front-end language for all commercial web browsers, which means that if you’re a web developer with front-end experience, you have certainly come across JavaScript. This makes it simpler for the developer who’s migrating from the front end into the back end; since the language basics haven’t changed, you only need to learn about the new things and change into a back-end mindset. At the same time, this helps companies find Node.js developers faster.
+
+**4\. Native Support for JSON**
+
+This is a tricky one since JSON actually spawned from JavaScript, but let’s not get into the whole chicken-and-egg thing here. Having native support for the main transport language used nowadays is a big plus. **Code 10** is a simple example following the JSON syntax.
+
+\[gist id="8e45f468747e6d91de84cedfe7531eff" file="Code 10 : Example of How JSON Is Natively Supported by JavaScript"\]
+
+This particular feature is especially useful in several cases—for instance when working with a document-based storage solution (like MongoDB) because the modeling of data ends up being native in both places (your app and the database). Also, when developing an API, you’ve already seen that the transport language of choice these days is JSON, so the ability to format your responses directly with native notation (you could even just output your entities, for that matter) is a very big plus when it comes to ease of use. The list could be extended, but those are some pretty powerful features that JavaScript and Node.js bring to the table without asking too much of the developer. They are quite easy to understand and use.
+
+**[5\. npm: The Node Package Manager](http://www.npmjs.org)**
+
+Another point in favor of Node.js is its amazing package manager. As we might know, development in Node is very module-dependent, meaning that we're not going to be developing the entire thing; most likely, we’ll be reusing someone else’s code in the form of modules. This is a very important aspect of Node.js, because this approach allows us to focus on what makes our application unique and lets the generic code be integrated seamlessly. We don’t have to recode the library for HTTP connectivity, nor our route handler on every project (in other words, we don’t have to keep reinventing the wheel); just set the dependencies of our project into the package.json file using the best-suited module names, and then npm will take care of going through the whole dependency tree and will install everything needed (think of APT for Ubuntu or Homebrew for Mac).  
+The number of active users and modules available (more than 100,000 packages and more than 600 million downloads a month) assures us that we’ll find what we need; and on the rare occasions when we don’t, we can contribute by uploading that specific module to the registry and help the next developer that comes looking for it.  
+This amount of modules can also be a bad thing since such a large number means that there will be several modules that try to do the same thing. (For instance, e-mail validation, sane-e-mail-validation, mailcover, and mailgun-e-mail-validation all try to do the same thing—validate an e-mail address using different techniques; depending on our needs, you have to pick one.) We have to browse through them to find the best-suited candidate.
+
+So far in this article, I have provided some reasons why Node.js stands one hand before when comes to REST API development. **Thanks for** **reading and see you all in the next blog post.**

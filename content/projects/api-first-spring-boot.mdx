@@ -1,0 +1,46 @@
+---
+title: "API-First Employees Service"
+summary: "A Spring Boot reference implementation showcasing an API-first workflow — OpenAPI contract first, code second."
+description: "A reference implementation of the API-first workflow on the JVM, with the OpenAPI spec as the source of truth, automatic server-stub generation, and contract tests baked into CI."
+period: "2024"
+role: "Architect & Engineer"
+stack:
+  - "Java 22"
+  - "Spring Boot 3"
+  - "OpenAPI 3.1"
+  - "PostgreSQL"
+  - "Docker"
+tag: "Backend"
+featured: true
+sourceUrl: "https://github.com/sharaafnazeer"
+order: 1
+---
+
+A small but opinionated reference for building Spring Boot services where the
+**OpenAPI spec is the contract**, not an afterthought. The spec drives both
+server-stub generation and a typed TypeScript client — frontend and backend
+teams can work in parallel from day one.
+
+## What it shows
+
+- A complete CRUD API for an `Employee` resource, designed spec-first.
+- The `openapi.yaml` lives in the repo and is reviewed in PRs like any other
+  source file.
+- `openapi-generator-maven-plugin` generates Java interfaces at build time;
+  controllers `implements` those interfaces, so drift is impossible.
+- Contract tests via [Schemathesis](https://schemathesis.readthedocs.io/) run
+  in CI against a Testcontainers-managed Postgres.
+- Swagger UI is exposed at `/swagger-ui` for live exploration.
+
+## Why it matters
+
+Most teams say they do API-first; in practice they design as they code. The
+result is APIs that leak implementation details and break clients silently.
+This repo demonstrates the minimum tooling needed to make the discipline stick.
+
+## What I'd add next
+
+- Pact contract tests against a sample consumer client.
+- Spectral linting in CI to enforce naming conventions on the spec.
+- A `pnpm` workspace with the generated TypeScript client published as a
+  package.

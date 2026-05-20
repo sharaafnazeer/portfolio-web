@@ -1,0 +1,42 @@
+---
+title: "Realtime Trading Dashboard"
+summary: "Sub-second market data and order management UI for institutional traders — Angular, signals, and a streaming GraphQL backend."
+description: "A streaming trader workstation built to keep up with bursty market data without flooding the UI thread, using fine-grained reactivity and back-pressure-aware subscriptions."
+period: "2024 — Present"
+role: "Lead Software Engineer"
+client: "Confidential — institutional finance"
+stack:
+  - "Angular 18"
+  - "Signals"
+  - "GraphQL Subscriptions"
+  - "Apollo Client"
+  - "TypeScript"
+  - "Java"
+tag: "Web"
+featured: true
+status: "in-progress"
+order: 3
+---
+
+The hardest part of a trader UI isn't the layout — it's keeping the screen
+truthful when 8,000 ticks per second are arriving on 30 instruments while a
+human is hovering an order ticket they expect to be instantly responsive.
+
+## Architecture highlights
+
+- **Fine-grained reactivity** with Angular Signals. Components subscribe to
+  exactly the data fields they need; a price tick only re-renders the cells
+  that depend on it.
+- **Back-pressure-aware GraphQL subscriptions** that coalesce updates server-
+  side based on observed client throughput.
+- **WebTransport for hot paths** with WebSocket fallback — a single bi-di
+  stream handles auth, subscriptions and order entry.
+- **Optimistic order acks** with reconciliation against the FIX gateway so
+  traders see immediate UI feedback but never see incorrect filled prices.
+- **Offline-first persistence** of the trader's workspace via IndexedDB,
+  including layout, watchlists and unsent ticket drafts.
+
+## What I'd talk about over coffee
+
+The reactivity-vs-correctness tradeoff in financial UIs is interesting and
+under-discussed. Happy to dive in to specifics — DM me.

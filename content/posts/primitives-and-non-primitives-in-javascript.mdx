@@ -1,0 +1,73 @@
+---
+title: "Primitives and Non-Primitives in JavaScript"
+description: "Before we move to the topic, let’s explore the following examples and try to understand what’s going on. As we know, constants cannot change through reassignment and constants cannot be redeclared"
+date: "2020-03-31"
+tag: "Common"
+categories:
+  - "Common"
+  - "JavaScript"
+tags:
+  - "javascript"
+  - "non-primitives"
+  - "primitives"
+coverImage: "/images/blog/primitives-and-non-primitives-in-javascript/cover.png"
+readingTime: "2 min read"
+published: true
+---
+Hello everyone!
+
+Before we move to the topic, let’s explore the following examples and try to understand what’s going on. As we know, constants cannot change through re-assignment and constants cannot be re-declared
+
+**Example 1.**
+
+![](/images/blog/primitives-and-non-primitives-in-javascript/1.png)
+
+The above example will output the value of number as **42**
+
+![](/images/blog/primitives-and-non-primitives-in-javascript/2.png)
+
+Now we will assign a different value for the same constant.
+
+![](/images/blog/primitives-and-non-primitives-in-javascript/3.png)
+
+So now what will be the output? As we know JavaScript is going to throw an error as bellow.
+
+![](/images/blog/primitives-and-non-primitives-in-javascript/4.png)
+
+Same as we will consider another example.
+
+**Example 2**
+
+![](/images/blog/primitives-and-non-primitives-in-javascript/5.png)
+
+So the above example will output the value of object as bellow.
+
+![](/images/blog/primitives-and-non-primitives-in-javascript/6.png)
+
+Now we will try to modify the value for the same constant object and see what happens.
+
+![](/images/blog/primitives-and-non-primitives-in-javascript/7.png)
+
+As like the previous example will JavaScript throw an error? Let’s go throw the answer bellow.
+
+![](/images/blog/primitives-and-non-primitives-in-javascript/8.png)
+
+Answer is NO!!!!
+
+Why is that????
+
+Here comes, the concept of Primitive and Non-Primitive of JavaScript.
+
+**Primitive values** are numbers, strings, Boolean, null & undefined. These Primitive Data Types also are **immutable**, which means that once created they cannot be modified. If a variable is assigned with a primitive type, we can say that variable is a primitive value. Moreover, Primitive types are passed by value.
+
+Objects like arrays and functions are called as **Non-primitive values.**
+
+**Non-primitive** values are mutable data types where the value of an object can be changed later after it gets created/initiated. Objects are not compared by value. They are not strictly equal even if two objects have the same values and properties. Same goes for arrays. They are not strictly equal even if they have the same elements that are in the same order.
+
+Non-primitive values can also be called as reference types because they are being compared by reference instead of value. That means reference points to the memory where an object is located. The variables don’t actually contain the value. Therefore, when we are modifying an object it will not modify the reference. That’s why JavaScript allows us to modify a constant object. But when we try to re-assign the value of the object, then JavaScript will throw the same error as in example 1.
+
+I hope everyone got an idea about Primitive and Non-Primitive types of JavaScript. I have included all the source code to the following GitHub repository.
+
+I hope everyone got an idea about Primitive and Non-Primitive types of JavaScript. I have included all the source code to the following GitHub repository.
+
+[https://github.com/sharaafnazeer/js-data-types.git](https://github.com/sharaafnazeer/js-data-types.git)

@@ -1,0 +1,38 @@
+---
+title: "Cross-Border Remittance App"
+summary: "A Flutter mobile app that takes a remittance from intent to confirmation in under 30 seconds across 14 corridors."
+description: "Mobile-first remittance product designed around the hard-won reality that most users in emerging markets are on low-end Android devices and unreliable networks."
+period: "2021 — 2022"
+role: "Associate Technical Lead"
+client: "Telco subsidiary, Southeast Asia"
+stack:
+  - "Flutter"
+  - "Dart"
+  - "Spring Boot"
+  - "Kafka"
+  - "AWS"
+tag: "Mobile"
+sourceUrl: ""
+order: 4
+---
+
+A consumer remittance product for sending money across 14 corridors in
+Southeast Asia. The product brief was simple: "make it the fastest, most
+forgiving app on the market". The implementation was less simple.
+
+## Constraints we designed for
+
+- **Low-end Android devices** (1 GB RAM, Android 8). Animations and image
+  assets were sized down brutally; the entire app fits in 18MB.
+- **Flaky networks**. Every call retries with exponential backoff and idempotency
+  keys so a customer never sends the same transfer twice.
+- **Compliance + KYC** in 4 jurisdictions with different document
+  requirements — a single dynamic-form engine, not a switch statement.
+- **Offline-first UX**: the user can compose a transfer offline, and the app
+  sends it when connectivity returns with clear status updates.
+
+## Outcome
+
+By v1.4 the app had a 4.7-star rating across both stores and a p95 "send a
+transfer" time of 28 seconds, end-to-end, including KYC checks. It was
+shipped across two countries with two more in pilot when I rolled off.

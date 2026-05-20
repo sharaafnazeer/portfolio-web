@@ -1,0 +1,67 @@
+---
+title: "Object-Relational Mappers (ORMs)"
+description: "As a fresher to the coding job or job interview, the terms like ORM can sound really intimidating. The great part of ORM is that they can make your work easier to write code once you get the hang of t"
+date: "2020-03-18"
+tag: "Common"
+categories:
+  - "Common"
+tags:
+  - "orms"
+  - "packagemanagers"
+coverImage: "/images/blog/object-relational-mappers-orms/cover.png"
+readingTime: "2 min read"
+published: true
+---
+As a fresher to the coding job or job interview, the terms like ORM can sound really intimidating. The great part of ORM is that they can make your work easier to write code once you get the hang of them.
+
+In this article, I’m trying to explain what is an ORM, What it does as well as the pros and cons of using them in your projects.
+
+**What is an ORM?**
+
+Before we go with ORM, first of all we will discuss about what is Object Relational Mapping.
+
+Object Relational Mapping is a technique for storing, updating, deleting and retrieving from an object oriented program in a relational database.
+
+So shortly we are trying to interact with our databases using any programming language of choice instead of using SQL queries.
+
+Here’s where the Object-relational-mapper comes in. ORM is nothing but a library that implements this technique.
+
+ORMs provide a kind of abstraction on top of a relational database that allows a programmer to write code instead of writing SQL queries to read, create, delete and update data and schema in their database. Developers can use the programming language, they are comfortable working with a database instead of writing SQL statements or stored procedures.
+
+![](/images/blog/object-relational-mappers-orms/screenshot-from-2020-03-18-23-25-52-1.png)
+
+Above example shows that how user table will be mapped to a class named **U****ser**.
+
+I hope everyone is familiar with SQL raw queries. They usually looks like :
+
+**SELECT \* FROM user WHERE Username = 'sharaafnazeer';**
+
+Therefore when we use an ORM, the above query would look something like this:
+
+**var user = orm("User").where(\{ Username: 'sharaafnazeer' \});**
+
+Syntax of the ORM might differ according to the ORM that you choose.
+
+Now let’s talk about the pros and cons of using ORMs in your applications.
+
+**Pros of using ORMs**
+
+1\. It allows you to code in any language that you are coding your application. You don’t want to be a master of SQL.
+
+2\. It abstracts away the database system so that switching from one to another DB engine.
+
+3\. Advanced features such as connection pooling, support for transactions, migrations, seeds, and so on. But it depends on the ORM.
+
+**Cons of using ORMs**
+
+1\. If you are a master at SQL, you can write better optimized queries to improve performance.
+
+2\. Need to learn ORM and their features separately.
+
+3\. As a developer, it is important to understand what is happening in background. Since ORMs can serve as a crutch to avoid understanding databases and SQL, therefore use of ORM may lead you to a weak developer position.
+
+**ORMs for famous Programming and Scripting Languages**
+
+There are many ORMs exist from the past couple of years. You can find the famous and most used ORMs from the link provided below.
+
+[https://en.wikipedia.org/wiki/List\_of\_object-relational\_mapping\_software](https://en.wikipedia.org/wiki/List_of_object-relational_mapping_software)

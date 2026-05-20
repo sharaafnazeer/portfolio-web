@@ -1,0 +1,179 @@
+---
+title: "Angular 18 Features: What's New in the Latest Release"
+description: "After the release of Angular 17 in November 2023, expectations soared for the next version. Angular 18 is expected to deliver better performance, boost developer efficiency, and streamline the creatio"
+date: "2024-06-13"
+tag: "Angular"
+categories:
+  - "Angular"
+  - "JavaScript"
+tags:
+  - "angular"
+  - "angularv18"
+  - "javascript"
+  - "nodejs"
+  - "typescript"
+coverImage: "/images/blog/angular-18-features-whats-new-in-the-latest-release/1-e1718270733606.png"
+readingTime: "4 min read"
+published: true
+---
+After the release of Angular 17 in November 2023, expectations soared for the next version. Angular 18 is expected to deliver better performance, boost developer efficiency, and streamline the creation of robust, scalable applications.
+
+Angular 18 finally arrived on May 22, 2024, bringing a host of new features and updates for developers to incorporate into their projects.
+
+**What’s New in Angular 18?**
+
+**1\. Zoneless Applications**
+
+Traditionally, Angular has depended on zone.js, which has posed challenges related to developer experience and performance. To address these issues, the Angular team has introduced experimental APIs for zoneless change detection.
+
+Developers can now experiment with **zoneless** support by integrating `**provideExperimentalZonelessChangeDetection**` during the application bootstrap process and removing `**zone.js**` from the `**polyfills**` section in `**angular.json**`.
+
+```js
+bootstrapApplication(App, {
+providers: [
+provideExperimentalZonelessChangeDetection()
+]
+});
+```
+
+The optimal approach to implement zoneless change detection in your components is by using signals
+
+```ts
+@Component({
+  ...
+  template: `
+    <h1>Hello from {{ name() }}!</h1>
+    <button (click)="handleClick()">Go Zoneless</button>
+  `,
+})
+export class App {
+  protected name = signal('Angular');
+
+  handleClick() {
+    this.name.set('Zoneless Angular');
+  }
+}
+```
+
+The transition to zoneless change detection is seamless for components, particularly those using `**ChangeDetectionStrategy.OnPush**`. This advancement significantly enhances performance and developer experience by minimizing the dependency on **zone.js**.
+
+**2\. Coalescing by Default**
+
+In Angular v18, event coalescing is enabled by default for new applications using **zone.js** with coalescing. This change reduces the number of change detection cycles, enhancing performance for some applications.
+
+However, to prevent potential issues in existing apps, this behavior is only enabled for new projects. Existing projects can opt-in to event coalescing by configuring the `**NgZone**` provider in the `**bootstrapApplication**`.
+
+```js
+bootstrapApplication(App, {
+providers: [
+provideZoneChangeDetection({ eventCoalescing: true })
+]
+});
+```
+
+**3\. Route Redirects as Functions**
+
+In Angular v18, `redirectTo` now accepts a function that returns a string, providing greater flexibility when handling redirects. For instance, if you need to redirect to a route based on runtime state, you can implement more complex logic within a function
+
+```ts
+const routes: Routes = [
+{ path: "first-component", component: FirstComponent },
+{
+path: "old-user-page",
+redirectTo: ({ queryParams }) => {
+const errorHandler = inject(ErrorHandler);
+const userIdParam = queryParams['userId'];
+if (userIdParam !== undefined) {
+return `/user/${userIdParam}`;
+} else {
+errorHandler.handleError(new Error('Attempted navigation to user page without user ID.'));
+return `/not-found`;
+}
+},
+},
+{ path: "user/:userId", component: OtherComponent },
+];
+```
+
+**4\. New Hub for Angular Developers**
+
+Angular developers now have a centralized hub at Angular, with angular.dev officially declared as the primary documentation website. As of now, all requests to angular.io will automatically redirect to angular.dev. The new platform offers a modern experience, featuring a WebContainer-based tutorial for hands-on learning.
+
+Additionally, it provides a live playground for developers, enriched with examples, an improved Algolia-based search function, revamped guides, and simplified navigation.
+
+![](/images/blog/angular-18-features-whats-new-in-the-latest-release/image-1024x550.png)
+
+Go to [angular.dev](http://angular.dev/) to check it out!
+
+**5\. Unified Control State Change Events**
+
+Now in Angular forms, the `**FormControl**`, `**FormGroup**`, and `**FormArray**` classes expose an `**events**` property, enabling subscription to a stream of events specific to each form control.
+
+With this feature, you can monitor changes in value, touch state, pristine status, and the overall control status.
+
+```ts
+const nameControl = new FormControl<string|null>('name', Validators.required);
+nameControl.events.subscribe(event => {
+// process the individual events
+});
+```
+
+**6\. Event Replay**
+
+Angular v18 has introduced the event replay feature as a developer preview, which can be enabled using `withEventReplay()`. This functionality, driven by event dispatch, guarantees a smooth user experience for hybrid rendering environments.
+
+```js
+bootstrapApplication(App, {
+providers: [
+provideClientHydration(withEventReplay())
+]
+});
+```
+
+**7\. Specifying a Fallback Content for ng-content**
+
+We can now specify a default content for ng-content. It is now available on Angular v18.
+
+```ts
+@Component({
+selector: 'app-profile',
+template: `
+<ng-content select=".greeting">Hello </ng-content>
+
+<ng-content>Unknown user</ng-content>
+`,
+})
+export class Profile {}
+```
+
+Now we can use the component:
+
+```html
+<app-profile>
+  <span class="greeting">Good morning </span>
+</app-profile>
+```
+
+Which will result in:
+
+```html
+<span class="greeting">Good morning </span>
+Unknown user
+```
+
+**8\. Upgraded Debugging Tools**
+
+Angular 18 introduces new debugging tools that simplify application debugging and testing by providing comprehensive information on the application's state.
+
+These tools include debugging with source maps, component trees, data bindings, and performance profiling, enhancing the developer's ability to diagnose and troubleshoot issues effectively.
+
+**9\. Hydration Support in CDK and Material**
+
+All Angular Material and CDK components, alongside primitives, are now fully hydration compatible in Angular 18. This ensures consistent rendering behavior across environments, improving the reliability of web applications.
+
+**10\. TypeScript 5.4**
+
+Lastly, the dependency on TypeScript has been updated in Angular 18, enabling developers to take advantage of all the latest [TypeScript 5.4 features](https://devblogs.microsoft.com/typescript/announcing-typescript-5-4/)!
+
+Apart from this major new features, Angular has improved it's eco system with lots of enhancements and updates. Checkout [Angular Dev](https://angular.dev/ "Angular Dev") for more information.  
+CHEERS!!

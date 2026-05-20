@@ -1,0 +1,143 @@
+---
+title: "Build a Simple TODO Application REST API using Spring Boot and MySQL"
+description: "Hello Everyone!   In this tutorial we will see how to create a simple Todo list API with CRUD operations along with MySQL and Spring Boot Data JPA."
+date: "2020-05-08"
+tag: "Design"
+categories:
+  - "Design"
+  - "Java"
+  - "Spring Boot"
+coverImage: "/images/blog/build-a-simple-todo-application-rest-api-using-spring-boot-and-mysql/cover.png"
+readingTime: "3 min read"
+published: true
+---
+Hello Everyone!  
+In this tutorial we will see how to create a simple Todo list API with CRUD operations along with MySQL and Spring Boot Data JPA.
+
+#### **What is Spring Boot?**
+
+Spring Boot is a framework which is build on top of Spring Framework. It provides an easier and faster way to set up, configure, and run both simple and web applications.
+
+#### **What is MySQL?**
+
+MySQL is an open-source relational database management system.
+
+#### ****Prerequisites****
+
+1\. Java 11 Installed  
+2\. XAMPP/ WAMP Installed  
+3\. Rest Client (Ex. Postman) Installed (To test the API)  
+4\. Code Editor/ IDE (Ex. IntelliJ IDEA)
+
+#### **Setting Up the Project**
+
+**Step 1 :**  
+Unlike other frameworks, Spring Boot provides an unique online project generation tool where you can initially setup your project and download the ready made source code.
+
+![](/images/blog/build-a-simple-todo-application-rest-api-using-spring-boot-and-mysql/0.png)
+
+---
+
+You can find the project setting via the following link
+
+[https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.2.7.RELEASE&packaging=jar&jvmVersion=11&groupId=com.sharaafnazeer.todo&artifactId=todo&name=TODO%20List&description=TODO%20List%20project%20for%20Spring%20Boot&packageName=com.sharaafnazeer.todo&dependencies=devtools,data-jpa,mysql](https://start.spring.io/#!type=gradle-project&language=java&platformVersion=2.2.7.RELEASE&packaging=jar&jvmVersion=11&groupId=com.sharaafnazeer.todo&artifactId=todo&name=TODO%20List&description=TODO%20List%20project%20for%20Spring%20Boot&packageName=com.sharaafnazeer.todo&dependencies=devtools,data-jpa,mysql)
+
+  
+**Step 2 :**  
+Open the downloaded project with your IDE (IntelliJ IDEA is better) and sync it properly.
+
+**Project Structure**
+
+![](/images/blog/build-a-simple-todo-application-rest-api-using-spring-boot-and-mysql/2.png)
+
+#### **Start Coding!!**
+
+**1\. Creating Properties File**
+
+Here we usually give our database related configurations such as server, db name, database engine type etc.
+
+\[gist id="e07ecaf16ef6ad508cd4233c7cacddc4" file="application.properties"\]
+
+**_spring.jpa.hibernate.ddl-auto=update_** tells our ORM to automatically update the database when a new entity is created or existing entity is modified
+
+**2\. Creating Entity Class**
+
+In order to perform Database operations, we need to create entity class to map out database column with Java class attributes
+
+\[gist id="e07ecaf16ef6ad508cd4233c7cacddc4" file="Todo.java"\]
+
+Since we are using Spring Data JPA along with Hibernate, above class will create the required table with respective fields in the database.
+
+**3\. Creating Repository Interface**
+
+**Spring Data JPA** provides built-in methods for performing basic CRUD operations and we don’t need to write any query method. Therefore, Spring generates the respective queries from your method to perform database operations.  
+So basically we only need to extend our **TodoRepository** interface with **JpaRepository** interface and we don't need to write any query method inside this repository.
+
+\[gist id="e07ecaf16ef6ad508cd4233c7cacddc4" file="TodoRepository.java"\]
+
+**4\. Creating Service Interface & Implementation Class**
+
+Service Components are the class file which contains **@Service** annotation. The service class is used generally if we want to perform some business logic or conversion to different data.  
+Initially we can create an Interface which contains store, get and delete methods using the code as shown below
+
+\[gist id="e07ecaf16ef6ad508cd4233c7cacddc4" file="TodoService.java"\]
+
+The following code will let you to create a class which implements the **TodoService** interface with **@Service** annotation and write the business logic to store, retrieve, delete and updates the product.  
+In order to do that, initially we need to inject out **TodoRepository** interface within out service class  
+Since **JpaRepository** provides built in methods, we can use those methods to interact with our database.
+
+\[gist id="e07ecaf16ef6ad508cd4233c7cacddc4" file="TodoServiceImpl.java"\]
+
+**5\. Creating REST Controller**
+
+Now we will call our CRUD operations with a REST API so that any client can consume our REST service and do CRUD operations. Here we @Autowired the TodoService interface and called the methods.
+
+\[gist id="e07ecaf16ef6ad508cd4233c7cacddc4" file="TodoController.java"\]
+
+**6\. Modifying Main Class**
+
+We also need to tell Spring where our repository interface is located. So we need to annotate the location with **@EnableJpaRepositories**
+
+\[gist id="e07ecaf16ef6ad508cd4233c7cacddc4" file="TodoListApplication.java"\]
+
+#### Testing the Application
+
+Run the main class to start the application.
+
+**1\. Creating Todo**
+
+Create Todo using REST client as shown below
+
+![](/images/blog/build-a-simple-todo-application-rest-api-using-spring-boot-and-mysql/4.png)
+
+**2\. Getting all Todo List**
+
+Now we will try to retrieve all available Todo
+
+![](/images/blog/build-a-simple-todo-application-rest-api-using-spring-boot-and-mysql/5.png)
+
+**2\. Updating a Todo**
+
+Now we will try to update Todo with id = 1
+
+![](/images/blog/build-a-simple-todo-application-rest-api-using-spring-boot-and-mysql/7.png)
+
+**3\. Getting a Todo**
+
+Now we will try to retrieve Todo with id = 2
+
+![](/images/blog/build-a-simple-todo-application-rest-api-using-spring-boot-and-mysql/6.png)
+
+**4\. Deleting a Todo**
+
+Now we will try to delete Todo with id = 1
+
+![](/images/blog/build-a-simple-todo-application-rest-api-using-spring-boot-and-mysql/8.png)
+
+That's it. Now we have successfully implemented a REST API using Spring Boot. In the mean time you can cross check with the Database whether it is getting updated correctly
+
+Complete project can be found here
+
+[https://github.com/sharaafnazeer/spring-booot-todohttps://github.com/sharaafnazeer/spring-booot-todo](https://github.com/sharaafnazeer/spring-booot-todohttps://github.com/sharaafnazeer/spring-booot-todo)  
+
+Thanks for Reading!!
