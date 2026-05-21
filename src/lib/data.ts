@@ -1,6 +1,6 @@
 export const profile = {
   name: "Sharaaf Nazeer",
-  greeting: "Bonjour",
+  greeting: "Hello!",
   roles: ["Software Engineer", "Tech Enthusiast", "Blogger", "Tutor"],
   email: "hello@sharaafnazeer.com",
   resumeUrl: "/resume",
