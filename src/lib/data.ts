@@ -20,7 +20,7 @@ export const profile = {
 export type Service = {
   title: string
   description: string
-  iconKey: "code" | "phone" | "palette" | "cloud"
+  iconKey: "code" | "phone" | "palette" | "cloud" | "agent"
 }
 
 export const services: Service[] = [
@@ -47,6 +47,12 @@ export const services: Service[] = [
     description:
       "Design scalable, resilient cloud-native systems with a focus on performance, security and developer ergonomics.",
     iconKey: "cloud",
+  },
+  {
+    title: "Agentic AI Development",
+    description:
+      "Design and ship production-grade agentic AI systems — autonomous agents, RAG pipelines, tool-using LLMs and multi-agent workflows wired into real product surfaces.",
+    iconKey: "agent",
   },
 ]
 

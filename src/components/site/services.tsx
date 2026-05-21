@@ -2,13 +2,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Section, SectionHeader } from "@/components/site/section";
 import { Reveal } from "@/components/site/reveal";
 import { services } from "@/lib/data";
-import { Cloud, Code2, Palette, Smartphone } from "lucide-react";
+import { Cloud, Code2, Palette, Smartphone, Sparkles } from "lucide-react";
 
 const iconMap = {
   code: Code2,
   phone: Smartphone,
   palette: Palette,
   cloud: Cloud,
+  agent: Sparkles,
 } as const;
 
 export function Services() {
@@ -27,7 +28,7 @@ export function Services() {
         description="From product strategy to pixel-perfect delivery, I help teams ship software that's resilient, accessible and a joy to use."
       />
 
-      <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
         {services.map((service, i) => {
           const Icon = iconMap[service.iconKey];
           return (

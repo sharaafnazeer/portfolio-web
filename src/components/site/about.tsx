@@ -5,7 +5,7 @@ import { profile } from "@/lib/data";
 const stats = [
   { label: "Years of experience", value: "9+" },
   { label: "Countries shipped to", value: "8" },
-  { label: "Teams led", value: "12+" },
+  { label: "Teams led", value: "5+" },
   { label: "Cup of coffee per day", value: "∞" },
 ];
 
