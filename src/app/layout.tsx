@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Figtree, Instrument_Serif } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site";
@@ -97,6 +99,12 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        {/* Vercel Web Analytics (page views, referrers) and Speed Insights
+            (Core Web Vitals reporting). Both auto no-op outside production
+            and on Vercel previews without the env hook-up, so they are safe
+            to leave mounted in development. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
