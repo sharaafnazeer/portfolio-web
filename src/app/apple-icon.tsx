@@ -9,7 +9,7 @@ import { loadOgFonts } from "@/lib/og";
  * Why a solid square (not a circle): iOS applies its own squircle mask on
  * the home screen and shows the full square on the share sheet, so a
  * full-bleed background reads cleaner across both contexts. We re-use the
- * Figtree font loader that already powers the OG images for a consistent
+ * Geist font loader that already powers the OG images for a consistent
  * mark across the social-share surface.
  */
 
@@ -33,7 +33,7 @@ export default async function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "Figtree",
+          fontFamily: "Geist",
           fontWeight: 600,
           fontSize: 128,
           letterSpacing: "-0.04em",

@@ -58,7 +58,7 @@ export function Hero() {
 
             <h1 className="font-display text-balance text-5xl leading-[1.02] tracking-tight sm:text-7xl lg:text-[5.5rem]">
               <span className="block text-muted-foreground italic">
-                {profile.greeting}.
+                {profile.greeting}
               </span>
               <span className="block">
                 I&apos;m <span className="text-foreground">{profile.name}</span>

@@ -25,10 +25,10 @@ export type OgFont = {
 };
 
 /**
- * Load Figtree (sans, weights 400 + 600) and Instrument Serif (italic, used
- * for the typographic accent in the title). Google Fonts serves WOFF2 by
- * default which Satori can't parse — using a desktop browser UA forces a
- * TTF response that Satori understands.
+ * Load Geist (sans, weights 400 + 600) so the OG card matches the new site
+ * typography. Google Fonts serves WOFF2 by default which Satori can't parse —
+ * using an older desktop browser UA forces a TTF/WOFF response that Satori
+ * understands.
  */
 async function fetchGoogleFont(
   family: string,
@@ -64,17 +64,18 @@ async function fetchGoogleFont(
 }
 
 export async function loadOgFonts(): Promise<OgFont[]> {
-  // We use Figtree only — Satori can't decode WOFF2 and Google now refuses
-  // to serve non-WOFF2 for newer faces (e.g. Instrument Serif italic). The
-  // typographic accent on the site is faked here with color + weight contrast.
-  const [figtreeRegular, figtreeSemibold] = await Promise.all([
-    fetchGoogleFont("Figtree", 400),
-    fetchGoogleFont("Figtree", 600),
+  // Geist 400 + 600 is enough to render the OG card — Satori can't decode
+  // WOFF2, and Google sometimes refuses to serve non-WOFF2 for newer
+  // variable faces (e.g. Fraunces). The typographic accent the site uses
+  // is faked here with color + weight contrast.
+  const [geistRegular, geistSemibold] = await Promise.all([
+    fetchGoogleFont("Geist", 400),
+    fetchGoogleFont("Geist", 600),
   ]);
 
   return [
-    { name: "Figtree", data: figtreeRegular, weight: 400, style: "normal" },
-    { name: "Figtree", data: figtreeSemibold, weight: 600, style: "normal" },
+    { name: "Geist", data: geistRegular, weight: 400, style: "normal" },
+    { name: "Geist", data: geistSemibold, weight: 600, style: "normal" },
   ];
 }
 
@@ -131,7 +132,7 @@ export function OgFrame({ eyebrow, title, italic, kicker }: OgFrameProps) {
         padding: "72px 80px",
         background: `radial-gradient(circle at 20% 0%, #fff3e8 0%, ${bg} 55%, ${bg} 100%)`,
         color: fg,
-        fontFamily: "Figtree",
+        fontFamily: "Geist",
       }}
     >
       {/* Top row: kicker + brand dot */}
@@ -201,7 +202,7 @@ export function OgFrame({ eyebrow, title, italic, kicker }: OgFrameProps) {
               borderRadius: 9999,
               background: fg,
               color: bg,
-              fontFamily: "Figtree",
+              fontFamily: "Geist",
               fontSize: 22,
               fontWeight: 600,
             }}

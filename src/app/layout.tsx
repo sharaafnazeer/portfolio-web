@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Figtree, Instrument_Serif } from "next/font/google";
+import { Fraunces, Geist, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -7,21 +7,30 @@ import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site";
 import { ThemeProvider } from "@/components/site/theme-provider";
 
-const figtree = Figtree({
+// Geist (Vercel's grotesque) carries the body copy — clean, modern, neutral
+// enough to let the display face do the talking.
+const geist = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const instrumentSerif = Instrument_Serif({
+// Fraunces is the personality of the site — used for the homepage headline,
+// every italic accent ("end-to-end", "drifted off", etc.) and the brand
+// "S" mark. We pull in the `opsz` axis so we can dial up the display optical
+// size on the hero, and ship both normal + italic styles.
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: "400",
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
+  axes: ["opsz", "SOFT"],
 });
 
-const geistMono = Geist_Mono({
+// JetBrains Mono replaces Geist Mono in code blocks — designed specifically
+// for code (true italics, distinctive zero/letterforms) with a touch more
+// character than Geist Mono.
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
@@ -85,9 +94,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn(
         "h-full antialiased scroll-smooth",
-        figtree.variable,
-        instrumentSerif.variable,
-        geistMono.variable
+        geist.variable,
+        fraunces.variable,
+        jetbrainsMono.variable
       )}
     >
       <body className="min-h-full flex flex-col font-sans bg-background text-foreground">
